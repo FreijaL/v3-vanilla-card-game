@@ -1,5 +1,7 @@
-// börja med att skapa ett deck
+// börja med att skapa ett deck och random kort
 let deck = createDeck();
+let drawnCard = drawCard();
+setCard(drawnCard);
 
 document.querySelector('#lower').addEventListener('click', lower);
 document.querySelector('#equal').addEventListener('click', equal);
@@ -20,7 +22,7 @@ function createDeck() {
                 suite: suits[i],
                 value: j,
                 color: getColor(suits[i]),
-                displayValue: 'A'
+                displayValue: getValue(j)
             };
             // för varje nytt kort bör vi pusha in det i vår lokala deck-array
             deck.push(card);
@@ -37,6 +39,21 @@ function createDeck() {
 
     function getValue(value) {
         // logik för valör på kort (A, J, D, M) 
+        if (value < 11) {
+            return value;
+        }
+        if (value == 11) {
+            return 'J';
+        }
+        if (value == 12) {
+            return 'D';
+        }
+        if (value == 13) {
+            return 'K';
+        }
+        if (value == 14) {
+            return 'A';
+        }
     }
 
     // returnerar hela decket när funktionen är färdig
@@ -44,6 +61,39 @@ function createDeck() {
 };
 
 console.log(deck);
+console.log(drawnCard);
+
+// slumpa kort ur decket
+function drawCard() {
+    let random = Math.floor(Math.random() * deck.length);
+    console.log(deck[random]);
+    let drawnCard = deck[random];
+
+    return drawnCard;
+};
+
+// sätt kort från random kort
+function setCard(card) {
+    let el = document.createElement('article');
+    el.classList.add('card');
+
+    el.innerHTML = `
+        <section class="front">
+            <header>
+                <span>${card.suite}</span>
+                <span>${card.displayValue}</span>
+            </header>
+            <footer>
+                <span>${card.suite}</span>
+                <span>${card.displayValue}</span>
+            </footer>
+        </section>
+        <section class="back"></section>
+    `;
+    console.log(el);
+    document.querySelector('.placeholder').appendChild(el);
+
+}
 
 function lower() {
     // logik för när anv gissar på att nästa kort är lägre
