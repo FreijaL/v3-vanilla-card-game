@@ -19,7 +19,7 @@ function createDeck() {
             //skapar kort-objekt
             // där vi lägger in symbol och värde
             let card = {
-                suite: suits[i],
+                suit: suits[i],
                 value: j,
                 color: getColor(suits[i]),
                 displayValue: getValue(j)
@@ -29,8 +29,8 @@ function createDeck() {
         }
     }
     // logik för färg på suite
-    function getColor(suite) {
-        if (suite == '&hearts;' || suite == '&diams;') {
+    function getColor(suit) {
+        if (suit == '&hearts;' || suit == '&diams;') {
             return 'red';
         } else {
             return 'black';
@@ -80,11 +80,11 @@ function setCard(card) {
     el.innerHTML = `
         <section class="front">
             <header>
-                <span>${card.suite}</span>
+                <span>${card.suit}</span>
                 <span>${card.displayValue}</span>
             </header>
             <footer>
-                <span>${card.suite}</span>
+                <span>${card.suit}</span>
                 <span>${card.displayValue}</span>
             </footer>
         </section>
