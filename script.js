@@ -1,6 +1,8 @@
 // börja med att skapa ett deck och random kort
+let activeCard;
 let deck = createDeck();
 let drawnCard = drawCard();
+
 setCard(drawnCard);
 
 document.querySelector('#lower').addEventListener('click', lower);
@@ -60,19 +62,27 @@ function createDeck() {
     return deck;
 };
 
-console.log(deck);
-console.log(drawnCard);
-
 // slumpa kort ur decket
 function drawCard() {
+    // få ett random nummer mellan 0 - 51 initialt
     let random = Math.floor(Math.random() * deck.length);
-    console.log(deck[random]);
-    let drawnCard = deck[random];
 
+    let drawnCard = deck[random];
+    activeCard = drawnCard;
+    // ta bort slumpat kort ur vårt deck
+    deck.splice(random, 1);
+    updateCount();
     return drawnCard;
 };
 
-// sätt kort från random kort
+// uppdatera mängden kort som är kvar
+function updateCount() {
+    let deckCount = deck.length;
+    document.querySelector('.left').innerHTML =
+        `${deckCount} kort kvar`;
+}
+
+// sätter nytt kort från random kort från drawCard-funktionen
 function setCard(card) {
     let el = document.createElement('article');
     el.classList.add('card');
@@ -80,23 +90,38 @@ function setCard(card) {
     el.innerHTML = `
         <section class="front">
             <header>
-                <span>${card.suit}</span>
+                <span class="${card.color}">${card.suit}</span>
                 <span>${card.displayValue}</span>
             </header>
+            <section class="${card.color}">${card.suit}</section>
             <footer>
-                <span>${card.suit}</span>
+                <span class="${card.color}">${card.suit}</span>
                 <span>${card.displayValue}</span>
             </footer>
         </section>
         <section class="back"></section>
     `;
-    console.log(el);
     document.querySelector('.placeholder').appendChild(el);
 
 }
 
 function lower() {
     // logik för när anv gissar på att nästa kort är lägre
+    // förberedelse för att byta kort
+    let previousCard = activeCard;
+    // slumpa ett nytt kort
+    let newCard = drawCard();
+    // uppdatera UI
+    setCard(newCard);
+
+    // jämföra tidigare kort med nuvarande
+    if (activeCard.value < previousCard.value) {
+        alert('YAY');
+        // öka på antal poäng - funktion för detta
+    } else {
+        alert('NAY');
+        // minska antalet försök som är kvar
+    }
 }
 
 function equal() {
