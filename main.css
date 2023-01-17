@@ -1,4 +1,3 @@
-
 body {
     display: flex;
     flex-direction: column;
@@ -14,7 +13,7 @@ body {
     top: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,.9);
+    background: rgba(0, 0, 0, .9);
     color: white;
     display: none;
     justify-content: center;
@@ -31,7 +30,7 @@ body {
     font-size: 3rem;
 }
 
-body > header {
+body>header {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,21 +38,28 @@ body > header {
     padding: 1rem;
 }
 
-header > p {
+header>p {
     margin: 0;
     width: 100%;
-    color: rgba(0,0,0,.8);
+    color: rgba(0, 0, 0, .8);
 }
 
-header .score, header .attempts {
+header .score,
+header .attempts {
     font-weight: 700;
     margin-left: .25rem;
     animation: fade .4s forwards;
 }
 
 @keyframes fade {
-    from { transform: scale(1.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+    from {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 main {
@@ -64,20 +70,20 @@ main {
     align-items: center;
 }
 
-main > section {
+main>section {
     max-width: 216px;
     width: 100%;
     height: 316px;
     margin: .5rem;
     padding: .5rem;
     box-sizing: border-box;
-    border:1px dotted rgba(0,0,0,.2);
+    border: 1px dotted rgba(0, 0, 0, .2);
     border-radius: .75rem;
 }
 
 .left {
     font-size: .8rem;
-    color: rgba(0,0,0,.6);
+    color: rgba(0, 0, 0, .6);
     margin: 0;
 }
 
@@ -92,8 +98,14 @@ main > section {
 }
 
 @keyframes drop {
-    from { transform: translate3d(0,0,400px) rotateY(360deg); opacity: 0; }
-      to { transform: translate3d(0,0,0) rotateY(0deg); opacity: 1; }
+    from {
+        transform: translate3d(0, 0, 400px) rotateY(360deg);
+        opacity: 0;
+    }
+    to {
+        transform: translate3d(0, 0, 0) rotateY(0deg);
+        opacity: 1;
+    }
 }
 
 .card .front {
@@ -159,7 +171,8 @@ nav {
     width: 100%;
 }
 
-nav a {
+nav a,
+.retry {
     padding: .75rem;
     flex: 1;
     font-size: .8rem;
@@ -188,5 +201,5 @@ nav a:last-child {
 }
 
 nav a:hover {
-    background: rgba(0,0,0,.1);
+    background: rgba(0, 0, 0, .1);
 }

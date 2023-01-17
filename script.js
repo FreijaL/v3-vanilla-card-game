@@ -1,5 +1,7 @@
 // börja med att skapa ett deck och random kort
 let activeCard;
+let score = 0;
+let attempts = 3;
 let deck = createDeck();
 let drawnCard = drawCard();
 
@@ -116,18 +118,66 @@ function lower() {
 
     // jämföra tidigare kort med nuvarande
     if (activeCard.value < previousCard.value) {
-        alert('YAY');
         // öka på antal poäng - funktion för detta
+        updateScore();
     } else {
-        alert('NAY');
         // minska antalet försök som är kvar
+        updateAttempts();
     }
 }
 
 function equal() {
     // logik för när anv gissar på att nästa kort är densamma
+    // spara undan aktiva kortet
+    let previousCard = activeCard;
+    // få ett nytt kort att jämföra med
+    let newCard = drawCard();
+    // visa det nya kortet i ui'n
+    setCard(newCard);
+    // jämför korten
+    if (newCard.value == previousCard.value) {
+        updateScore();
+    } else {
+        updateAttempts();
+    }
 }
 
 function higher() {
     // logik för när anv gissar på att nsäta kort är högre
+    let previousCard = activeCard;
+    let newCard = drawCard();
+    setCard(newCard);
+
+    if (newCard.value > previousCard.value) {
+        updateScore();
+    } else {
+        updateAttempts();
+    }
+}
+
+// öka poäng
+function updateScore() {
+    let newScore = score + 100;
+    score = newScore;
+    document.querySelector('.score').innerHTML = score;
+}
+
+// minska försök
+function updateAttempts() {
+    attempts = attempts - 1;
+    document.querySelector('.attempts').innerHTML = attempts;
+
+    if (attempts == 0) {
+        // då har man använt upp sina försök
+        gameOver();
+    }
+}
+
+// game over-vy
+function gameOver() {
+    document.querySelector('#gameover').classList.add('show');
+    let retryBtn = document.querySelector('.retry');
+    retryBtn.addEventListener('click', () => {
+        location.reload();
+    });
 }
